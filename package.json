@@ -1,0 +1,24 @@
+{
+  "name": "ani-me",
+  "version": "0.0.1",
+  "description": "HorribleSubs torrent monitor",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/brlebtag/Ani-me.git"
+  },
+  "keywords": [
+    "horriblesubs",
+    "torrent",
+    "monitor"
+  ],
+  "author": "Bruno Lebtag <brlebtag@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brlebtag/Ani-me/issues"
+  },
+  "homepage": "https://github.com/brlebtag/Ani-me#readme"
+}
