@@ -2,9 +2,9 @@
 HorribleSubs torrent monitor
 
 
-# default Config
+# Configuration
 
-Create a json file named .anime-me inside your home folder like this:
+Create a json file named .anime-me inside your home's folder like this:
 
 ```
 {
@@ -15,7 +15,16 @@ Create a json file named .anime-me inside your home folder like this:
     },
     "rss": "http://www.horriblesubs.info/rss.php?res=720",
     "torrentClient": "transmission-gtk",
+    "precision": 0.7
 }
 ```
 
-Any command parameter should be passed throught _torrentClient_ parameter.
+1. `"fetchIntervalMins"`: minutes between each request. Default to **15**.
+
+2. `"watching"`: Contains a pair with show's name and show's last episode number.
+
+3. `"rss"`: RSS url to check for new episodes. Default to **[http://www.horriblesubs.info/rss.php?res=720](http://www.horriblesubs.info/rss.php?res=720)**.
+
+4. `"torrentClient"`: Torrent client that will be called. Any additional parameters should be passed here. Default to **transmission-gtk**. The client will be called like `torrentClient`  `magnet-link`.
+
+5. `"precision"`: How close the show's name you informed should be equal to RSS show's name to be considered the same show. Ranging from 0 to 1. Default to **0.7**.

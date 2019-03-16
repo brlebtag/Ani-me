@@ -9,8 +9,17 @@ const Utils = require('./lib/helpers/utils');
 const similar = require('damerau-levenshtein');
 const { exec } = require('child_process');
 
+const defaultConfig = {
+    fetchIntervalMins: 15,
+    watching: {},
+    rss: 'http://www.horriblesubs.info/rss.php?res=720',
+    torrentClient: 'transmission-gtk',
+    precision: 0.7,
+};
+
 async function checkAndUpdate(config, configFile) {
     const icon = Dir.installed('icon.png');
+    const precision = config.precision;
     
     let req, $;
 
@@ -45,7 +54,7 @@ async function checkAndUpdate(config, configFile) {
                 let compare = similar(title, show);
 
                 let downloadShow =
-                    compare.similarity > 0.5 &&
+                    compare.similarity > precision &&
                     episode > lastEpisode;
 
                 if (downloadShow) {
@@ -76,7 +85,7 @@ async function checkAndUpdate(config, configFile) {
     } else {
         notifier.notify({
             title: 'Ani-me',
-            message: `No new anime released! :<`,
+            message: `No new anime released :(`,
             icon: icon,
         });
     }
@@ -94,15 +103,19 @@ async function main() {
     let config;
 
     try {
-        config = JSON.parse(await IO.read(configFile));
+        config = 
+            Object.assign(
+                Object.assign({}, defaultConfig),
+                JSON.parse(await IO.read(configFile))
+            );
+
+        Utils.success(`Configuration loaded.`);
+
     } catch(e) {
         /* Default config */
-        config = {
-            fetchIntervalMins: 15,
-            watching: {},
-            rss: 'http://www.horriblesubs.info/rss.php?res=720',
-            torrentClient: 'transmission-gtk',
-        };
+        config = Object.assign({}, defaultConfig);
+
+        Utils.error(`Error parsing config file. Using default configuration.`);
     }
 
     const fetchIntervalMins =
