@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const notifier = require('node-notifier');
 const cheerio = require('cheerio');
 const axios = require('axios');
@@ -8,6 +10,8 @@ const similar = require('damerau-levenshtein');
 const { exec } = require('child_process');
 
 async function check(config, configFile) {
+    const icon = Dir.installed('icon.jpg');
+    
     let req, $;
 
     try {
@@ -49,8 +53,6 @@ async function check(config, configFile) {
                     // Download Episode.
                     exec(`${config.torrentClient} ${link}`);
 
-                    const icon = Dir.installed('icon.jpg');
-
                     notifier.notify({
                         title: 'Ani-me',
                         message: `Episode ${episode} of ${show} was relesed!`,
@@ -69,6 +71,12 @@ async function check(config, configFile) {
 
     if (updated) {
         await IO.write(configFile, JSON.stringify(config, null, 4));
+    } else {
+        notifier.notify({
+            title: 'Ani-me',
+            message: `No new anime released! :<`,
+            icon: icon,
+        });
     }
 }
 
@@ -95,8 +103,8 @@ async function main() {
         };
     }
 
-    config.fetchIntervalMins =
-        config.fetchIntervalMins * 1000 * 60;
+    const fetchIntervalMins =
+        config.fetchIntervalMins * 60000;
 
     await check(config, configFile);
 
@@ -104,7 +112,7 @@ async function main() {
         async () => {
             await check(config, configFile);
         },
-        config.fetchIntervalMins
+        fetchIntervalMins
     );
 }
 
