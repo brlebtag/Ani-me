@@ -59,6 +59,8 @@ async function check(config, configFile) {
                         icon: icon,
                     });
 
+                    Utils.success(`[Ani-me] Episode ${episode} of ${show} was relesed!`);
+
                     config.watching[show] = episode;
 
                     updated = true;
