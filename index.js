@@ -9,8 +9,8 @@ const Utils = require('./lib/helpers/utils');
 const similar = require('damerau-levenshtein');
 const { exec } = require('child_process');
 
-async function check(config, configFile) {
-    const icon = Dir.installed('icon.jpg');
+async function checkAndUpdate(config, configFile) {
+    const icon = Dir.installed('icon.png');
     
     let req, $;
 
@@ -108,11 +108,11 @@ async function main() {
     const fetchIntervalMins =
         config.fetchIntervalMins * 60000;
 
-    await check(config, configFile);
+    await checkAndUpdate(config, configFile);
 
     setInterval(
         async () => {
-            await check(config, configFile);
+            await checkAndUpdate(config, configFile);
         },
         fetchIntervalMins
     );
