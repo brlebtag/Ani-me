@@ -30,6 +30,7 @@
     "cheerio": "^1.0.0-rc.2",
     "damerau-levenshtein": "^1.0.4",
     "lodash": "^4.17.11",
+    "luxon": "^1.12.0",
     "node-notifier": "^5.4.0"
   }
 }

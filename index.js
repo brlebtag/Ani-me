@@ -8,6 +8,7 @@ const Dir = require('./lib/helpers/dir');
 const Utils = require('./lib/helpers/utils');
 const similar = require('damerau-levenshtein');
 const { exec } = require('child_process');
+const { DateTime } = require('luxon');
 
 const defaultConfig = {
     fetchIntervalMins: 15,
@@ -81,6 +82,7 @@ async function checkAndUpdate(config, configFile) {
     });
 
     if (updated) {
+        config.lastUpdated = DateTime.local().toFormat('dd/LL/yyyy hh:mm:ss');
         await IO.write(configFile, JSON.stringify(config, null, 4));
     } else {
         notifier.notify({
