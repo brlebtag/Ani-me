@@ -14,7 +14,7 @@ Create a json file named .anime-me inside your home's folder like this:
         "One Piece": 875
     },
     "rss": "http://www.horriblesubs.info/rss.php?res=720",
-    "torrentClient": "transmission-gtk",
+    "torrentClient": "transmission-gtk {magnet}",
     "precision": 0.7
 }
 ```
@@ -25,6 +25,6 @@ Create a json file named .anime-me inside your home's folder like this:
 
 3. `"rss"`: RSS url to check for new episodes. Default to **[http://www.horriblesubs.info/rss.php?res=720](http://www.horriblesubs.info/rss.php?res=720)**.
 
-4. `"torrentClient"`: Torrent client that will be called. Any additional parameters should be passed here. Default to **transmission-gtk**. The client will be called like `torrentClient`  `magnet-link`.
+4. `"torrentClient"`: Torrent client that will be called. Any additional parameters should be passed here. Default to **transmission-gtk {magnet}**. Ani-me will replace `{magnet}` for the magnet link string.
 
 5. `"precision"`: How close the show's name you informed should be equal to RSS show's name to be considered the same show. Ranging from 0 to 1. Default to **0.7**.

@@ -14,7 +14,7 @@ const defaultConfig = {
     fetchIntervalMins: 15,
     watching: {},
     rss: 'http://www.horriblesubs.info/rss.php?res=720',
-    torrentClient: 'transmission-gtk',
+    torrentClient: 'transmission-gtk {magnet}',
     precision: 0.7,
 };
 
@@ -61,7 +61,7 @@ async function checkAndUpdate(config, configFile) {
                 if (downloadShow) {
 
                     // Download Episode.
-                    exec(`${config.torrentClient} ${link}`);
+                    exec(config.torrentClient.replace('{magnet}', link));
 
                     notifier.notify({
                         title: 'Ani-me',
