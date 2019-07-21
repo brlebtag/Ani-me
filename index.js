@@ -9,6 +9,7 @@ const Utils = require('./lib/helpers/utils');
 const similar = require('damerau-levenshtein');
 const { exec } = require('child_process');
 const { DateTime } = require('luxon');
+const { chunk } = require('lodash');
 
 const defaultConfig = {
     fetchIntervalMins: 15,
@@ -42,13 +43,30 @@ async function checkAndUpdate(config, configFile) {
 
     const items = $('item');
 
-    items.each((i, item) => {
+    chunk(
+        items.map((i, item) => {
+            try {
+                item = $(item);
+                const link = item.find('link')[0].next.data.trim();
+                const _title = Utils.title(item.find('title').text());            
+                const [title, episode] = Utils.titleEpisode(_title);
+                return [title, episode, link];
+            } catch (e) {
+                Utils.error('Failed attempt to process the data.');
+            }
+        }).get(),
+        3
+    )
+    .sort(([title1, episode1, link1], [title2, episode2, link2]) => {
+        /* Sort Asc */
+        if (episode1 < episode2)
+            return -1;
+        else if (episode1 > episode2)
+            return 1;
+        return 0;
+    })
+    .forEach(([title, episode, link]) => {
         try {
-            item = $(item);
-            const link = item.find('link')[0].next.data.trim();
-            const _title = Utils.title(item.find('title').text());            
-            const [title, episode] = Utils.titleEpisode(_title);
-
             for(let show in watching) {
                 let lastEpisode = watching[show];
 
