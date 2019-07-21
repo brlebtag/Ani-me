@@ -20,7 +20,8 @@ const defaultConfig = {
 };
 
 async function checkAndUpdate(config, configFile) {
-    const icon = Dir.installed('icon.png');
+    const iconFail = Dir.installed('fail.png');
+    const iconSuccess = Dir.installed('success.png');
     const precision = config.precision;
     
     let req, $;
@@ -84,7 +85,7 @@ async function checkAndUpdate(config, configFile) {
                     notifier.notify({
                         title: 'Ani-me',
                         message: `Episode ${episode} of ${show} was relesed!`,
-                        icon: icon,
+                        icon: iconSuccess,
                     });
 
                     Utils.success(`[Ani-me] Episode ${episode} of ${show} was relesed!`);
@@ -106,7 +107,7 @@ async function checkAndUpdate(config, configFile) {
         notifier.notify({
             title: 'Ani-me',
             message: `No new anime released :(`,
-            icon: icon,
+            icon: iconFail,
         });
     }
 }
