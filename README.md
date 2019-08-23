@@ -4,7 +4,7 @@ HorribleSubs torrent monitor
 
 # Configuration
 
-Create a json file named .anime-me inside your home's folder like this:
+Create a json file named `.ani-me` inside your home's folder like this:
 
 ```
 {
