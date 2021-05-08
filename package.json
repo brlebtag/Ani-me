@@ -29,7 +29,7 @@
     "chalk": "^2.4.2",
     "cheerio": "^1.0.0-rc.2",
     "damerau-levenshtein": "^1.0.5",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "luxon": "^1.17.1",
     "node-notifier": "^5.4.0"
   }
